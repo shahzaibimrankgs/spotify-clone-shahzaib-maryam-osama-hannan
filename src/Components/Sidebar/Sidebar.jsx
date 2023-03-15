@@ -1,31 +1,23 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 
-import {
-  Sidebar,
-  Menu,
-  MenuItem,
-  SubMenu,
-  useProSidebar,
-} from "react-pro-sidebar";
+import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 const Bar = () => {
-  const { collapseSidebar } = useProSidebar();
-
   return (
-    <div style={{ display: "flex", height: "100%" }}>
+    <div style={{ display: "flex", height: "100vh", backgroundColor: "black" }}>
       <Sidebar>
         <Menu>
-          <SubMenu label="Charts">
-            <MenuItem> Pie charts </MenuItem>
-            <MenuItem> Line charts </MenuItem>
-          </SubMenu>
-          <MenuItem> Calendar</MenuItem>
-          <MenuItem> E-commerce</MenuItem>
+          <MenuItem component={<Link to="/home" />}> Home</MenuItem>
+          <MenuItem component={<Link to="/search" />}> Search</MenuItem>
+          <MenuItem component={<Link to="/library" />}>Your Library</MenuItem>
+          <MenuItem component={<Link to="/createPlaylist" />}>
+            Create Playlist
+          </MenuItem>
+          <MenuItem component={<Link to="/likedSongs" />}>Liked Songs</MenuItem>
         </Menu>
+        <p>cookies</p>
+        <button>English</button>
       </Sidebar>
-      <main>
-        <button onClick={() => collapseSidebar()}>Collapse</button>
-      </main>
       <Outlet />
     </div>
   );

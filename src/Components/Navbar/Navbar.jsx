@@ -3,7 +3,7 @@ import "./Navbar.css";
 import { Outlet, Link } from "react-router-dom";
 const Navbar = () => {
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <ul>
         <li>
           <Link to="/login">
