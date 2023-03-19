@@ -12,6 +12,7 @@ const Home = () => {
         playlistName="Peaceful Piano"
         description="Relax and indulge with beautiful piano pieces"
       />
+      <Link>Show All</Link>
     </div>
   );
 };
