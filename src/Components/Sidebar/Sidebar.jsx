@@ -1,24 +1,18 @@
 import React from "react";
-import { Outlet, Link } from "react-router-dom";
+import SidebarOptions from "../SidebarOptions/SidebarOptions";
+import "./Sidebar.css";
 
-import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 const Bar = () => {
   return (
-    <div style={{ display: "flex", height: "100vh", backgroundColor: "black" }}>
-      <Sidebar>
-        <Menu>
-          <MenuItem component={<Link to="/home" />}> Home</MenuItem>
-          <MenuItem component={<Link to="/search" />}> Search</MenuItem>
-          <MenuItem component={<Link to="/library" />}>Your Library</MenuItem>
-          <MenuItem component={<Link to="/createPlaylist" />}>
-            Create Playlist
-          </MenuItem>
-          <MenuItem component={<Link to="/likedSongs" />}>Liked Songs</MenuItem>
-        </Menu>
-        <p>cookies</p>
-        <button>English</button>
-      </Sidebar>
-      <Outlet />
+    <div className="sidebar">
+      <img
+        className="sidebar-logo"
+        src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg"
+        alt=""
+      />
+      <SidebarOptions title="Home" />
+      <SidebarOptions title="Search" />
+      <SidebarOptions title="Your Library" />
     </div>
   );
 };

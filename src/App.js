@@ -29,7 +29,8 @@ function App() {
   }, []);
   return (
     <div className="App">
-      <a href={loginUrl}>Login with spotify</a>
+      {/* <a href={loginUrl}>Login with spotify</a> */}
+      {/*We will add this link to a button click later on */}
       <div>{token ? <Player /> : <LogIn />}</div>
     </div>
   );
