@@ -5,13 +5,17 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { ProSidebarProvider } from "react-pro-sidebar";
+import { DataLayer } from "./DataLayer";
+import { reducer, initialState } from "./reducer";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ProSidebarProvider>
-        <App />
+        <DataLayer initialState={initialState} reducer={reducer}>
+          <App />
+        </DataLayer>
       </ProSidebarProvider>
     </BrowserRouter>
   </React.StrictMode>
