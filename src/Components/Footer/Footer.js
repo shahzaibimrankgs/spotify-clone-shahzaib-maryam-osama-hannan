@@ -1,9 +1,49 @@
 import React from "react";
 import "./Footer.css";
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import ShuffleIcon from "@material-ui/icons/Shuffle";
+import RepeatIcon from "@material-ui/icons/Repeat";
+import VolumeDownIcon from "@material-ui/icons/VolumeDown";
+import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
+import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
+import { Grid, Slider } from "@material-ui/core";
 function Footer() {
   return (
     <div className="footer">
-      <h1>I am the footer</h1>
+      <div className="footer-left">
+        <img
+          className="footer-albumlogo"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ41FbV-8P3e2Qw01zpP8wO5W1jfjI03xuIA&usqp=CAU"
+          alt=""
+        />
+        <div className="footer-songInfo">
+          <h4>Haaray</h4>
+          <p>Abdul Hannan</p>
+        </div>
+      </div>
+      <div className="footer-center">
+        <ShuffleIcon className="footer-green" />
+        <SkipPreviousIcon className="footer-icon" />
+        <PlayCircleOutlineIcon fontSize="large" className="footer-icon" />
+        <SkipNextIcon className="footer-icon" />
+        <RepeatIcon className="footer-green" />
+      </div>
+      <div className="footer-right">
+        {/*Volume button display */}
+        <Grid container spacing={2}>
+          <Grid item>
+            <PlaylistPlayIcon />
+          </Grid>
+          <Grid item>
+            <VolumeDownIcon />
+          </Grid>
+          <Grid item xs>
+            <Slider aria-labelledby="continuous-slider" />
+          </Grid>
+        </Grid>
+      </div>
     </div>
   );
 }
