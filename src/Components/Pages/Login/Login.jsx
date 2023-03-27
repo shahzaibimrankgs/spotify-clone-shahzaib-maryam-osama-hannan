@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import "./Login.css";
 import YupPassword from "yup-password";
 import Gmail from "../Gmail/Gmail";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 
 // import { useNavigate, useLocation } from "react-router-dom";
 YupPassword(Yup);
@@ -35,22 +37,38 @@ const validationSchema = Yup.object({
 const LogIn = () => {
   return (
     <div>
+       <div class="signUpContainer">
+      <div class="spotifyLogo">
+      <FontAwesomeIcon icon={faSpotify} size="2x" />
+      <span className="spotifyText">Spotify</span>
+      <span className="regTradeMark">&reg;</span>
+</div>
+</div>
+<hr className="loginHr"/>
       <div>
-        <h4>To continue, log in to Spotify</h4>
-        <div>
+        <p className="loginSubHeading">To continue, log in to Spotify.</p>
+        <div className="googleSignUpBtn">
           <Gmail />
         </div>
       </div>
-      <h2>Login</h2>
+      {/* <h2>Login</h2> */}
+      <div className="signUpHrContainer">
+  <hr className="logInHrLine logInHrLeft" />
+  <span className="logInHrText">OR</span>
+  <hr className="logInHrLine logInHrRight" />
+</div >
+<div className="signUpFormik">
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onsubmit}
       >
         <Form>
+          
           <div className="form-control">
             <label htmlFor="email" />
-            <h4>Email address or username</h4>
+            <h5>Email address or username</h5>
             <Field
               type="email"
               id="email"
@@ -63,7 +81,7 @@ const LogIn = () => {
           </div>
           <div className="form-control">
             <label htmlFor="password" />
-            <h4>Password</h4>
+            <h5>Password</h5>
             <Field
               type="password"
               id="password"
@@ -75,16 +93,19 @@ const LogIn = () => {
             </div>
           </div>
           <div className="btn">
+          <div className="signUpBtn">
             <button type="submit" id="logged=in">
               Login
-            </button>
+            </button></div>
+            <hr className="loginHr"/>
             {/* <Link to={"/signup"}> */}
-            <button>Sign Up</button>
+          <h4 className="alreadyUser">Don't have an account? </h4>
+            <button className="loginPageSignUp">SIGN UP FOR SPOTIFY</button>
             {/* </Link> */}
           </div>
         </Form>
       </Formik>
-    </div>
+    </div></div>
   );
 };
 export default LogIn;
