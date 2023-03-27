@@ -8,7 +8,7 @@ import { useDataLayerValue } from "./DataLayer";
 // import Routers from "./Routes/appRoutes";
 const spotify = new SpotifyWebApi(); //connecting spotify to react in order to talk to react(sort of)
 function App() {
-  const [{ user, token, playlists }, dispatch] = useDataLayerValue();
+  const [{ token }, dispatch] = useDataLayerValue();
 
   useEffect(() => {
     const hash = getTokenFromUrl();
@@ -21,31 +21,44 @@ function App() {
       });
       spotify.setAccessToken(_token);
     }
-    spotify.getMe().then((user) => {
+  }); //getMe() returns a promise so kind of an asynchronous call
+
+  spotify.getPlaylist("37i9dQZEVXcE5d49CTtUz4").then((response) => {
+    dispatch({
+      type: "SET_DISCOVER_WEEKLY",
+      discover_weekly: response,
+    });
+  });
+  spotify.getMyTopArtists().then((response) =>
+    dispatch({
+      type: "SET_TOP_ARTISTS",
+      top_artists: response,
+    })
+  );
+  // dispatch({
+  //   type: "SET_SPOTIFY",
+  //   spotify: spotify,
+  // });
+  spotify.getMe().then(
+    (user) => {
       dispatch({
         type: "SET_USER",
         user: user,
       });
-    }); //getMe() returns a promise so kind of an asynchronous call
-    spotify.getUserPlaylists().then((playlists) => {
-      dispatch({
-        type: "SET_PLAYLISTS",
-        playlists: playlists,
+      spotify.getUserPlaylists().then((playlists) => {
+        dispatch({
+          type: "SET_PLAYLISTS",
+          playlists: playlists,
+        });
       });
-    });
-    spotify.getPlaylist("37i9dQZEVXcE5d49CTtUz4").then((response) => {
-      dispatch({
-        type: "SET_DISCOVER_WEEKLY",
-        discover_weekly: response,
-      });
-    });
-  }, []);
-  console.log(playlists);
+    },
+    [token, dispatch]
+  );
   return (
     <div className="App">
       <a href={loginUrl}>Login with spotify</a>
       {/*We will add this link to a button click later on */}
-      <div>{token ? <Player /> : <LogIn />}</div>
+      <div>{token ? <Player spotify={spotify} /> : <LogIn />}</div>
     </div>
   );
 }

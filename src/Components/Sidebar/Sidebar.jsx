@@ -8,7 +8,6 @@ import { useDataLayerValue } from "../../DataLayer";
 
 const Bar = () => {
   const [DataLayer] = useDataLayerValue();
-  console.log("eeeeeeeeeeeeeeeeeeeeee", DataLayer);
   return (
     <div className="sidebar">
       <img
