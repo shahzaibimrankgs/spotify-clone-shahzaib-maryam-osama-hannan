@@ -47,3 +47,10 @@
   margin-right: 20px;
   object-fit: contain;
 }
+.footer-songInfo > h4 {
+  margin-bottom: 5px;
+}
+
+.footer-songInfo > p {
+  font-size: 12px;
+}
