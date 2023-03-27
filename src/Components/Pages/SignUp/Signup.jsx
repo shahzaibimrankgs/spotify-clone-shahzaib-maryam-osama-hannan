@@ -5,7 +5,10 @@ import * as Yup from "yup";
 import "./Signup.css";
 import YupPassword from "yup-password";
 import Gmail from "../Gmail/Gmail";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 YupPassword(Yup);
+
 
 const initialValues = {
   username: "",
@@ -25,14 +28,26 @@ const validationSchema = Yup.object({
 const Signup = () => {
   return (
     <div>
+    <div class="signUpContainer">
+      <div class="spotifyLogo">
+      <FontAwesomeIcon icon={faSpotify} size="2x" />
+      <span className="spotifyText">Spotify</span>
+      <span className="regTradeMark">&reg;</span>
+</div>
+</div>
       <div>
-        <h2>Sign up for free to start listening.</h2>
-        <div>
+        <h2 className="signUpHeading">Sign up for free to start listening.</h2>
+        <div className="googleSignUpBtn">
           <Gmail />
-          <h4>-------or--------</h4>
         </div>
+        <div className="signUpHrContainer">
+  <hr className="logInHrLine logInHrLeft" />
+  <span className="logInHrText">OR</span>
+  <hr className="logInHrLine logInHrRight" />
+</div >
       </div>
-      <h2>Sign up with your email address</h2>
+      <h2 className="signUpSmallHeading">Sign up with your email address</h2>
+      <div className="signUpFormik">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -42,7 +57,7 @@ const Signup = () => {
           <div className="names">
             <div className="form-control">
               <label htmlFor="email" />
-              <h4>What's your email?</h4>
+              <h5>What's your email?</h5>
               <Field
                 type="email"
                 id="email"
@@ -55,7 +70,7 @@ const Signup = () => {
             </div>
             <div className="form-control">
               <label htmlFor="cemail" />
-              <h4>Confirm your email</h4>
+              <h5>Confirm your email</h5>
               <Field
                 type="email"
                 id="cemail"
@@ -69,7 +84,7 @@ const Signup = () => {
           </div>
           <div className="form-control">
             <label htmlFor="password" />
-            <h4>Create a password.</h4>
+            <h5>Create a password</h5>
             <Field
               type="password"
               id="password"
@@ -82,14 +97,14 @@ const Signup = () => {
           </div>
           <div className="form-control">
             <label htmlFor="username" />
-            <h4>What should we call you?</h4>
+            <h5>What should we call you?</h5>
             <Field
               type="text"
               id="username"
               name="username"
               placeholder="Enter a profile name."
             />
-            <h5>This appears on your profile.</h5>
+            <h6>This appears on your profile.</h6>
             <div className="err">
               <ErrorMessage name="username" />
             </div>
@@ -97,7 +112,7 @@ const Signup = () => {
 
           <div className="form-control">
             <label htmlFor="dob" />
-            <h4>What's your date of birth?</h4>
+            <h5>What's your date of birth?</h5>
             <Field type="date" id="dob" name="dob" />
             <div className="err">
               <ErrorMessage name="dob" />
@@ -105,7 +120,7 @@ const Signup = () => {
           </div>
           <div className="form-control">
             <label htmlFor="gender" />
-            <h4>What's your gender?</h4>
+            <h5>What's your gender?</h5>
             <label>
               <Field type="radio" name="picked" value="male" />
               Male
@@ -119,8 +134,10 @@ const Signup = () => {
               Prefer not to say
             </label>
           </div>
-          <button>Sign up</button>
-          <h5>Have an account?</h5>
+          <div className="signUpBtn">
+          <button >Sign up</button>
+          </div>
+          <h5 className="alreadyUser">Have an account? Log In</h5>
           {/* <a href="">Log in</a> */}
           {/* <div className="btn">
             <button type="submit" id="signed-up">
@@ -130,6 +147,7 @@ const Signup = () => {
           </div> */}
         </Form>
       </Formik>
+    </div>
     </div>
   );
 };
