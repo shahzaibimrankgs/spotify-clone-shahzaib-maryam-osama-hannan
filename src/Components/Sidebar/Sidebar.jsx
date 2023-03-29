@@ -3,6 +3,7 @@ import SidebarOptions from "../SidebarOptions/SidebarOptions";
 import HomeIcon from "@material-ui/icons/Home";
 import SearchIcon from "@material-ui/icons/Search";
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
+import { Outlet } from "react-router-dom";
 import "./Sidebar.css";
 import { useDataLayerValue } from "../../DataLayer";
 
@@ -24,6 +25,7 @@ const Bar = () => {
       {DataLayer.playlists?.items?.map((playlist) => (
         <SidebarOptions title={playlist.name} />
       ))}
+      <Outlet />
     </div>
   );
 };

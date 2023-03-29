@@ -1,4 +1,3 @@
-import { findAllByDisplayValue } from "@testing-library/react";
 export const initialState = {
   user: null,
   playlists: [],
@@ -7,12 +6,8 @@ export const initialState = {
   top_artists: null,
   playing: false,
   item: null,
-  //remove after finished developing
-  //   token:
-  // "BQAKyakdvmSodjIhKcfZ3sWy5Ibp-jgEgHNsUJR_WgRtWJ-wlMDQV0eWjUmTAjggYJAdLI8ezYfY-sV-TkXroru8sdmE6G13QrYz80aGnoswEbgRMXYXm0NoeYQR991U9h4BeiiSZDh2oP3jAMBjw_WtpCCxT4wdBqV7oOXZeOhRdCYLzA9C3tgVb2k4J4iup6aZDHwbeqRV3zVbp5paFQ",
 };
 export const reducer = (state, action) => {
-  // console.log(action);
   switch (action.type) {
     case "SET_USER":
       return {

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../../Card/Card";
+import Bar from "../../Sidebar/Sidebar";
 import "./Home.css";
 import piano from "./piano.jpg";
 const Home = () => {

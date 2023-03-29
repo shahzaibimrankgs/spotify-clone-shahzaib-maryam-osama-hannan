@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import LogIn from "./Components/Pages/Login/Login";
-import { getTokenFromUrl, loginUrl } from "./Components/spotify";
+import { getTokenFromUrl } from "./Components/spotify";
 import SpotifyWebApi from "spotify-web-api-js";
 import Player from "./Components/Player/Player";
 import { useDataLayerValue } from "./DataLayer";
+import Home from "./Components/Pages/Home/Home";
+import Routers from "./Routes/appRoutes";
 
 // import Routers from "./Routes/appRoutes";
 const spotify = new SpotifyWebApi(); //connecting spotify to react in order to talk to react(sort of)
@@ -56,9 +58,9 @@ function App() {
   );
   return (
     <div className="App">
-      <a href={loginUrl}>Login with spotify</a>
-      {/*We will add this link to a button click later on */}
-      <div>{token ? <Player spotify={spotify} /> : <LogIn />}</div>
+      <div>
+        <Routers />
+      </div>
     </div>
   );
 }

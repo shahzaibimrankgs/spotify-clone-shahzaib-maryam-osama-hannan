@@ -70,7 +70,6 @@ function Footer({ spotify }) {
       });
     });
   };
-  console.log("SONGGGGGGGGGGGGGGG", item);
   return (
     <div className="footer">
       <div className="footer-left">
