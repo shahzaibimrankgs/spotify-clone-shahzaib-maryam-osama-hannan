@@ -10,16 +10,14 @@ const Routers = () => {
     <div>
       <Routes>
         <Route path="" element={<Bar />}>
-          <Route path="" element={<Navbar />}>
-            <Route
-              path="/"
-              element={<Navigate to="/home" element={<Home />} />}
-            />
+          <Route
+            path="/"
+            element={<Navigate to="/home" element={<Home />} />}
+          />
 
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/home" element={<Home />} />
-          </Route>
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/home" element={<Home />} />
         </Route>
       </Routes>
     </div>

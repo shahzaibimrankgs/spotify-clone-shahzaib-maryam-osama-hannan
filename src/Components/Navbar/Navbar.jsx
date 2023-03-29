@@ -1,23 +1,24 @@
-import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+  faCoffee,
+} from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
-import { Outlet, Link } from "react-router-dom";
-const Navbar = () => {
+function Navbar() {
   return (
-    <div style={{ width: "100%" }}>
-      <ul>
-        <li>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-        </li>
-        <li>
-          <Link to="/signup">
-            <button>Signup</button>
-          </Link>
-        </li>
-      </ul>
-      <Outlet />
+    <div className="navbar">
+      <div className="navigation-button">
+        <FontAwesomeIcon icon={faChevronLeft} className="fa" />
+        <FontAwesomeIcon icon={faChevronRight} className="fa" />
+      </div>
+      <div className="login-button">
+        <Link to="/login">Login</Link>
+        <Link to="/Signup">Signup</Link>
+      </div>
     </div>
   );
-};
+}
+
 export default Navbar;

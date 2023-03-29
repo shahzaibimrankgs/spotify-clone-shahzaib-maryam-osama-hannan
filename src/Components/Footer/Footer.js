@@ -10,7 +10,7 @@ import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import { Grid, Slider } from "@material-ui/core";
 import { useDataLayerValue } from "../../DataLayer";
-function Footer({ spotify }) {
+function Footer({ spotify, id }) {
   const [{ token, item, playing }, dispatch] = useDataLayerValue();
   useEffect(() => {
     spotify.getMyCurrentPlaybackState().then((r) => {
