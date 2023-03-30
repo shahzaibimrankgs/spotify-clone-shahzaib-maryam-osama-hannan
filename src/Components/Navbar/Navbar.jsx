@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import {
   faChevronLeft,
   faChevronRight,
-  faCoffee,
 } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 import { useDataLayerValue } from "../../DataLayer";
@@ -34,7 +33,7 @@ function Navbar() {
         <FontAwesomeIcon icon={faChevronRight} className="fa" />
       </div>
 
-      {location?.pathname == "/search" ? (
+      {location?.pathname === "/search" ? (
         <div>
           <form className="searchStyle">
             <input

@@ -7,11 +7,9 @@ import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Outlet } from "react-router-dom";
 import "./Sidebar.css";
-import { useDataLayerValue } from "../../DataLayer";
 import { Link } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 const Bar = () => {
-  const [DataLayer] = useDataLayerValue();
   return (
     <div className="app-container">
       <div className="app-sidebar">
