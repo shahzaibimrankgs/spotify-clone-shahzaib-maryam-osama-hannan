@@ -66,7 +66,6 @@ const LogIn = () => {
               "http://localhost:4000/users/login",
               body
             );
-            console.log(body);
             if (response) {
               localStorage.setItem("token", response.data.accessToken);
               navigate("/home");

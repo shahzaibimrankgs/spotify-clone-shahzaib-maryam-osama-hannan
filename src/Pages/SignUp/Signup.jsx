@@ -50,7 +50,6 @@ const Signup = () => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={async (values) => {
-            console.log("values", values);
             const body = {
               email: values.email,
               name: values.name,
@@ -67,7 +66,7 @@ const Signup = () => {
               return res;
             }
 
-            return "maa chudao";
+            return "okay";
           }}
         >
           <Form>
@@ -131,7 +130,7 @@ const Signup = () => {
                 type="text"
                 id="gender"
                 name="gender"
-                placeholder="Khusra"
+                placeholder="gender"
               />
               <h6>This appears on your profile.</h6>
               <div className="err">
@@ -139,27 +138,6 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* <div className="form-control">
-              <label htmlFor="dob" />
-              <h5>What's your date of birth?</h5>
-              <Field type="date" id="dob" name="dob" />
-            </div>
-            <div className="form-control">
-              <label htmlFor="gender" />
-              <h5>What's your gender?</h5>
-              <label>
-                <Field type="radio" name="picked" value="male" />
-                Male
-              </label>
-              <label>
-                <Field type="radio" name="picked" value="female" />
-                Female
-              </label>
-              <label>
-                <Field type="radio" name="picked" value="none" />
-                Prefer not to say
-              </label>
-            </div> */}
             <div className="signUpBtn">
               <button type="submit">Sign up</button>
             </div>
