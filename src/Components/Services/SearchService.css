@@ -1,0 +1,6 @@
+.card-containeeer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 30px;
+  margin-top: 50px;
+}

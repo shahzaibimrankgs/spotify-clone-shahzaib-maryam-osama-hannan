@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Footer.css";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
@@ -9,109 +9,79 @@ import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import { Grid, Slider } from "@material-ui/core";
-import { useDataLayerValue } from "../../DataLayer";
-function Footer({ spotify }) {
-  const [{ token, item, playing }, dispatch] = useDataLayerValue();
-  useEffect(() => {
-    spotify.getMyCurrentPlaybackState().then((r) => {
-      console.log("play back state", r);
+import axios from "axios";
 
-      dispatch({
-        type: "SET_PLAYING",
-        playing: r.is_playing,
-      });
-
-      dispatch({
-        type: "SET_ITEM",
-        item: r.item,
-      });
-    });
-  }, [spotify]);
-  const handlePlayPause = () => {
-    if (playing) {
-      spotify.pause();
-      dispatch({
-        type: "SET_PLAYING",
-        playing: false,
-      });
+function Footer({ id }) {
+  const [isPlaying, setPlaying] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState("");
+  const audioRef = useRef();
+  const [volume, setVolume] = useState(50);
+  function togglePlay() {
+    if (isPlaying) {
+      audioRef.current.pause();
     } else {
-      spotify.play();
-      dispatch({
-        type: "SET_PLAYING",
-        playing: true,
-      });
+      audioRef.current.play();
     }
-  };
+    setPlaying(!isPlaying);
+  }
 
-  const skipNext = () => {
-    spotify.skipToNext();
-    spotify.getMyCurrentPlayingTrack().then((r) => {
-      dispatch({
-        type: "SET_ITEM",
-        item: r.item,
-      });
-      dispatch({
-        type: "SET_PLAYING",
-        playing: true,
-      });
-    });
-  };
+  function handleVolumeChange(event, newValue) {
+    setVolume(newValue);
+    audioRef.current.volume = newValue / 100;
+  }
 
-  const skipPrevious = () => {
-    spotify.skipToPrevious();
-    spotify.getMyCurrentPlayingTrack().then((r) => {
-      dispatch({
-        type: "SET_ITEM",
-        item: r.item,
+  useEffect(() => {
+    const options = {
+      method: "GET",
+      url: `https://spotify23.p.rapidapi.com/tracks/`,
+      params: { ids: id },
+      headers: {
+        "X-RapidAPI-Key": "afa926a45dmsh2cb35df4033af93p14ecbbjsnd6c275a7f6fd",
+        "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+      },
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        const previewUrl = response.data.tracks[0].preview_url;
+        setPreviewUrl(previewUrl);
+      })
+      .catch(function (error) {
+        console.error(error);
       });
-      dispatch({
-        type: "SET_PLAYING",
-        playing: true,
-      });
-    });
-  };
-  console.log("SONGGGGGGGGGGGGGGG", item);
+  }, [id]);
+
+  useEffect(() => {
+    if (previewUrl && isPlaying) {
+      audioRef.current.play();
+    } else if (previewUrl && !isPlaying) {
+      audioRef.current.pause();
+    }
+  }, [previewUrl, isPlaying]);
+
   return (
     <div className="footer">
-      <div className="footer-left">
-        <img
-          className="footer-albumlogo"
-          src={item?.album.images[0].url}
-          alt={item?.name}
-        />
-        {item ? (
-          <div className="footer-songInfo">
-            <h4>{item.name}</h4>
-            <p>{item.artists.map((artist) => artist.name).join(", ")}</p>
-          </div>
-        ) : (
-          <div className="footer-songInfo">
-            <h4>No song is playing</h4>
-            <p>...</p>
-          </div>
-        )}
-      </div>
       <div className="footer-center">
         <ShuffleIcon className="footer-green" />
-        <SkipPreviousIcon onClick={skipNext} className="footer-icon" />
-        {playing ? (
-          <PauseCircleOutlineIcon
-            onClick={handlePlayPause}
-            fontSize="large"
-            className="footer-icon"
-          />
-        ) : (
-          <PlayCircleOutlineIcon
-            onClick={handlePlayPause}
-            fontSize="large"
-            className="footer-icon"
-          />
-        )}
-        <SkipNextIcon onClick={skipPrevious} className="footer-icon" />
+        <SkipPreviousIcon className="footer-icon" />
+        <div onClick={togglePlay}>
+          {isPlaying ? (
+            <>
+              <audio src={previewUrl} />,
+              <PauseCircleOutlineIcon
+                fontSize="large"
+                className="footer-icon"
+              />
+            </>
+          ) : (
+            <PlayCircleOutlineIcon fontSize="large" className="footer-icon" />
+          )}
+        </div>
+        <SkipNextIcon className="footer-icon" />
         <RepeatIcon className="footer-green" />
       </div>
       <div className="footer-right">
-        {/*Volume button display */}
         <Grid container spacing={2}>
           <Grid item>
             <PlaylistPlayIcon />
@@ -120,10 +90,17 @@ function Footer({ spotify }) {
             <VolumeDownIcon />
           </Grid>
           <Grid item xs>
-            <Slider aria-labelledby="continuous-slider" />
+            <Slider
+              value={volume}
+              onChange={handleVolumeChange}
+              aria-labelledby="continuous-slider"
+            />
           </Grid>
         </Grid>
       </div>
+      {previewUrl && (
+        <audio ref={audioRef} src={previewUrl} onEnded={togglePlay} />
+      )}
     </div>
   );
 }
