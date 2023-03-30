@@ -9,13 +9,13 @@ import VolumeDownIcon from "@material-ui/icons/VolumeDown";
 import PauseCircleOutlineIcon from "@material-ui/icons/PauseCircleOutline";
 import PlaylistPlayIcon from "@material-ui/icons/PlaylistPlay";
 import { Grid, Slider } from "@material-ui/core";
+import axios from "axios";
 
-function Footer({ spotify, id }) {
+function Footer({ id }) {
   const [isPlaying, setPlaying] = useState(false);
-  const [previewUrl, setPreviewUrl] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
   const audioRef = useRef();
   const [volume, setVolume] = useState(50);
-
   function togglePlay() {
     if (isPlaying) {
       audioRef.current.pause();
@@ -31,20 +31,25 @@ function Footer({ spotify, id }) {
   }
 
   useEffect(() => {
-    if (!id) return;
-    const apiUrl = `https://api.spotify.com/v1/tracks/${id}`;
-    fetch(apiUrl, {
+    const options = {
+      method: "GET",
+      url: `https://spotify23.p.rapidapi.com/tracks/`,
+      params: { ids: id },
       headers: {
-        "x-rapidapi-host": "spotify23.p.rapidapi.com",
         "X-RapidAPI-Key": "a3ed0e39d5mshac15d804c8cc9e6p1a14fbjsnf9646d9b381b",
+        "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
       },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const previewUrl = data.preview_url;
+    };
+
+    axios
+      .request(options)
+      .then(function (response) {
+        const previewUrl = response.data.tracks[0].preview_url;
         setPreviewUrl(previewUrl);
       })
-      .catch((error) => console.error(error));
+      .catch(function (error) {
+        console.error(error);
+      });
   }, [id]);
 
   useEffect(() => {
@@ -62,7 +67,13 @@ function Footer({ spotify, id }) {
         <SkipPreviousIcon className="footer-icon" />
         <div onClick={togglePlay}>
           {isPlaying ? (
-            <PauseCircleOutlineIcon fontSize="large" className="footer-icon" />
+            <>
+              <audio src={previewUrl} />,
+              <PauseCircleOutlineIcon
+                fontSize="large"
+                className="footer-icon"
+              />
+            </>
           ) : (
             <PlayCircleOutlineIcon fontSize="large" className="footer-icon" />
           )}

@@ -4,11 +4,10 @@ import Footer from "../Footer/Footer";
 import SpotifyWebApi from "spotify-web-api-js";
 import "./SearchService.css";
 
-const spotify = new SpotifyWebApi(); //connecting spotify to react in order to talk to react(sort of)
+const spotify = new SpotifyWebApi();
 const SearchService = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [ids, setIds] = useState("4686eQ81DEswHa90bcdlC9");
-  //   setIds("4686eQ81DEswHa90bcdlC9");
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://localhost:4000/track/getTrack");
@@ -33,7 +32,6 @@ const SearchService = () => {
             id={result.preview_url}
             setIds={setIds}
           />
-          {/* <button onClick={()=>handleClick(result.data.id)}>button</button> */}
         </div>
       ))}
       <Footer spotify={spotify} />

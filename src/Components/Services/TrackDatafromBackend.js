@@ -4,7 +4,6 @@ import Footer from "../Footer/Footer";
 const TrackDatafromBackend = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [ids, setIds] = useState("4686eQ81DEswHa90bcdlC9");
-  //   setIds("4686eQ81DEswHa90bcdlC9");
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("http://localhost:4000/track/getAllTracks");
@@ -27,8 +26,8 @@ const TrackDatafromBackend = () => {
             title={result.name}
             artist={result.artist}
             id={result.preview_url}
+            onClick={() => handleClick(result.id)}
           />
-          {/* <button onClick={()=>handleClick(result.data.id)}>button</button> */}
         </div>
       ))}
       <Footer id={ids} />

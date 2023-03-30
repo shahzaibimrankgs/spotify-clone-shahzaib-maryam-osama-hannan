@@ -8,6 +8,7 @@ import "./CommonServices.css";
 function CommonServices() {
   const [searchResults, setSearchResults] = useState([]);
   const [{ search }] = useDataLayerValue();
+  const [id, setId] = useState(null);
 
   const createTrack = async (id) => {
     try {
@@ -40,7 +41,10 @@ function CommonServices() {
   useEffect(() => {
     fetchData();
   }, [search]);
-  console.log(searchResults);
+  const handleClick = (id) => {
+    setId(id);
+  };
+
   return (
     <div className="search-container">
       <div className="search-results-container">
@@ -51,11 +55,11 @@ function CommonServices() {
               title={result.data.name}
               artist={result.data.artists.items[0].profile.name}
               id={result.data.id}
-              onClick={() => createTrack(result.id)}
+              onClick={() => handleClick(result.data.id)}
             />
           </div>
         ))}
-        <Footer />
+        <Footer id={id} />
       </div>
     </div>
   );
