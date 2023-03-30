@@ -1,7 +1,6 @@
 .search-container {
   height: 100%;
   margin-top: 80px;
-  margin-left: 100px;
 }
 .search-results-container {
   display: grid;

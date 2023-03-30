@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import {
@@ -10,6 +10,7 @@ import "./Navbar.css";
 import { useDataLayerValue } from "../../DataLayer";
 
 function Navbar() {
+  const location = useLocation();
   const [value, setValue] = useState("");
   const [{ search }, dispatch] = useDataLayerValue();
 
@@ -25,24 +26,27 @@ function Navbar() {
       });
     }
   }, [value, dispatch]);
-  console.log("VALUEEEE", value);
   const userLoggedIn = localStorage.getItem("token");
-  console.log(userLoggedIn);
   return (
     <div className="navbar">
       <div className="navigation-button">
         <FontAwesomeIcon icon={faChevronLeft} className="fa" />
         <FontAwesomeIcon icon={faChevronRight} className="fa" />
       </div>
-      <div>
-        <form className="searchStyle">
-          <input
-            placeholder="Search for songs or episodes"
-            value={value}
-            onChange={handleSearch}
-          />
-        </form>
-      </div>
+
+      {location?.pathname == "/search" ? (
+        <div>
+          <form className="searchStyle">
+            <input
+              placeholder="What do you want to listen to?"
+              value={value}
+              onChange={handleSearch}
+            />
+          </form>
+        </div>
+      ) : (
+        <div></div>
+      )}
       <div className="login-button">
         {userLoggedIn && (
           <Link

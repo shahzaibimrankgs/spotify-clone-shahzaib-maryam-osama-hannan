@@ -36,7 +36,7 @@ function Footer({ id }) {
       url: `https://spotify23.p.rapidapi.com/tracks/`,
       params: { ids: id },
       headers: {
-        "X-RapidAPI-Key": "a3ed0e39d5mshac15d804c8cc9e6p1a14fbjsnf9646d9b381b",
+        "X-RapidAPI-Key": "afa926a45dmsh2cb35df4033af93p14ecbbjsnd6c275a7f6fd",
         "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
       },
     };
