@@ -1,7 +1,12 @@
 import React from "react";
-import "./Search";
+import CommonServices from "../../Services/CommonServices";
+import "./Search.css";
 function Search() {
-  return <div></div>;
+  return (
+    <div>
+      <CommonServices />
+    </div>
+  );
 }
 
 export default Search;

@@ -5,9 +5,7 @@ import { faCirclePlay } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Footer/Footer";
 function Card(props) {
   const [ids, setIds] = useState([]);
-  const handleClick = (id) => {
-    setIds(id);
-  };
+
   return (
     <div className="card-container">
       <div className="card-image">
@@ -16,7 +14,7 @@ function Card(props) {
           <FontAwesomeIcon
             icon={faCirclePlay}
             className="fa-play-circle"
-            onClick={() => props.setIds(props.id)}
+            onClick={() => props.onClick(props.id)}
           />
         </div>
       </div>

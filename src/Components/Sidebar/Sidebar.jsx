@@ -8,6 +8,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Outlet } from "react-router-dom";
 import "./Sidebar.css";
 import { useDataLayerValue } from "../../DataLayer";
+import { Link } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
 const Bar = () => {
   const [DataLayer] = useDataLayerValue();
@@ -28,7 +29,9 @@ const Bar = () => {
             </a>
             <a className="sideBarButton" href="/search">
               <FontAwesomeIcon icon={faMagnifyingGlass}></FontAwesomeIcon>
-              <span className="sideBarText">Search</span>
+              <span className="sideBarText">
+                <Link to={"./search"}>Search</Link>
+              </span>
             </a>
             <a className="sideBarButton" href="/library">
               <FontAwesomeIcon icon={faBook}></FontAwesomeIcon>

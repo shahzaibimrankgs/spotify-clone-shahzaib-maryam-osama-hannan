@@ -7,18 +7,16 @@ import YupPassword from "yup-password";
 import Gmail from "../Gmail/Gmail";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpotify } from "@fortawesome/free-brands-svg-icons";
-import { loginUrl } from "../../spotify";
-// import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
 YupPassword(Yup);
 
 const initialValues = {
-  emailUserName: "",
+  email: "",
   password: null,
 };
-
 const validationSchema = Yup.object({
-  password: Yup.string().password().required("Required"),
-  emailUserName: Yup.string("Enter your Email/Phone Number")
+  email: Yup.string("Enter your Email")
     .required("Email/userName is required")
     .test("test-name", "Enter Valid UserName/Email", function (value) {
       const emailRegex =
@@ -35,6 +33,7 @@ const validationSchema = Yup.object({
     }),
 });
 const LogIn = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div class="signUpContainer">
@@ -61,7 +60,22 @@ const LogIn = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={onsubmit}
+          onSubmit={async (values) => {
+            var body = { email: values.email };
+            const response = await axios.post(
+              "http://localhost:4000/users/login",
+              body
+            );
+            console.log(body);
+            if (response) {
+              localStorage.setItem("token", response.data.accessToken);
+              navigate("/home");
+              window.location.reload();
+              return response;
+            } else {
+              return "invalid credentials";
+            }
+          }}
         >
           <Form>
             <div className="form-control">
@@ -86,21 +100,18 @@ const LogIn = () => {
                 name="password"
                 placeholder="Password"
               />
-              <div className="err">
-                <ErrorMessage name="password" />
-              </div>
             </div>
             <div className="btn">
               <div className="signUpBtn">
                 <button type="submit" id="logged=in">
-                  <a href={loginUrl}>Login</a>
+                  Login
                 </button>
               </div>
               <hr className="loginHr" />
-              {/* <Link to={"/signup"}> */}
-              <h4 className="alreadyUser">Don't have an account? </h4>
-              <button className="loginPageSignUp">SIGN UP FOR SPOTIFY</button>
-              {/* </Link> */}
+              <Link to={"/signup"}>
+                <h4 className="alreadyUser">Don't have an account? </h4>
+                <button className="loginPageSignUp">SIGN UP FOR SPOTIFY</button>
+              </Link>
             </div>
           </Form>
         </Formik>

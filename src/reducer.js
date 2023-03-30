@@ -6,6 +6,7 @@ export const initialState = {
   top_artists: null,
   playing: false,
   item: null,
+  search: "",
 };
 export const reducer = (state, action) => {
   switch (action.type) {
@@ -14,7 +15,12 @@ export const reducer = (state, action) => {
         ...state,
         user: action.user,
       };
-
+    case "SET_SEARCH": {
+      return {
+        ...state,
+        search: action.search,
+      };
+    }
     case "SET_PLAYING":
       return {
         ...state,
